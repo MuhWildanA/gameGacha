@@ -23,10 +23,9 @@ public class MainFrame extends javax.swing.JFrame {
     private GachaSystem gachaSystem;
     private Player player;
 
-    private JLabel lblPity;
-    private JPanel panelTengah;
-    private JTextArea txtInventory;
-
+//    private JLabel lblPity;
+//    private JPanel panelTengah;
+//    private JTextArea txtInventory;
     private Clip audioAktif;
 
     public MainFrame() {
@@ -53,7 +52,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLihatPool = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        lblInf = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblDisplayGambar = new javax.swing.JLabel();
 
@@ -62,8 +60,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5.setText("GACHA ANOMALI");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1024, 576));
 
-        jPanel1.setBackground(new java.awt.Color(216, 216, 216));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(829, 70));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -80,11 +79,11 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         panelKanan.setBackground(new java.awt.Color(230, 230, 230));
-        panelKanan.setPreferredSize(new java.awt.Dimension(250, 291));
+        panelKanan.setPreferredSize(new java.awt.Dimension(200, 291));
         panelKanan.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Koleksi anomali");
+        jLabel1.setText("History Gacha");
         jLabel1.setPreferredSize(new java.awt.Dimension(82, 30));
         panelKanan.add(jLabel1, java.awt.BorderLayout.PAGE_START);
 
@@ -121,9 +120,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        lblInf.setText("selamat datang di game ini. Silahkan pencet tombol dibawah untuk mulai game");
-        jPanel4.add(lblInf, java.awt.BorderLayout.NORTH);
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
         jPanel2.add(lblDisplayGambar, new java.awt.GridBagConstraints());
@@ -132,7 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(766, 542));
+        setSize(new java.awt.Dimension(1024, 576));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -145,7 +141,7 @@ public class MainFrame extends javax.swing.JFrame {
         int currentPity = gachaSystem.getPity();
         jLabel6.setText("Pity counter : " + currentPity + " / 90");
 
-        lblInf.setText("Kamu mendapakan : " + hasilGacha.toString());
+//        lblInf.setText("Kamu mendapakan : " + hasilGacha.toString());
         putarSuara(hasilGacha.getSoundPath());
 
         try {
@@ -156,8 +152,7 @@ public class MainFrame extends javax.swing.JFrame {
             e.getMessage();
         }
 
-        p.setText("");
-
+//        p.setText("");
         int nomor = 1;
         for (Item i : player.getInventory()) {
             p.append(nomor + ". " + i.toString() + "\n");
@@ -183,8 +178,7 @@ public class MainFrame extends javax.swing.JFrame {
         int currentPity = gachaSystem.getPity();
         jLabel6.setText("Pity counter : " + currentPity + " / 90");
 
-        lblInf.setText("Membuka 10 berkas anomali secara berurutan...");
-
+//        lblInf.setText("Membuka 10 berkas anomali secara berurutan...");
         GachaAnimasiDialog animasiDialog = new GachaAnimasiDialog(this, true, hasil);
 
         animasiDialog.setVisible(true);
@@ -198,7 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
             nomor++;
         }
 
-        lblInf.setText("Gacha 10x selesai. Koleksi anomali telah diperbarui!");
+//        lblInf.setText("Gacha 10x selesai. Koleksi anomali telah diperbarui!");
     }//GEN-LAST:event_pull10ActionPerformed
 
     private void putarSuara(String pathSuara) {
@@ -235,7 +229,7 @@ public class MainFrame extends javax.swing.JFrame {
         // MODIFIKASI: Mengunci ukuran panel agar SAMA PERSIS dengan JDialog konstan
         // Silakan sesuaikan angka (300, 450) di bawah dengan ukuran setSize() JDialog-mu
         panelPopUp.setPreferredSize(new Dimension(380, 380));
-        
+
         // Memberikan padding/jarak dalam 20px di setiap sisi agar layout tidak mepet ke tepi
         panelPopUp.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
         // =====================================================================
@@ -270,6 +264,22 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.PLAIN_MESSAGE,
                 null // Di-null karena gambarnya sudah menyatu di dalam panelPopUp
         );
+
+        soundOff();
+    }
+
+    private void soundOff() {
+        try {
+            if (audioAktif != null) {
+                if (audioAktif.isRunning()) {
+                    audioAktif.stop();
+                }
+                audioAktif.close();
+                audioAktif = null;
+            }
+        } catch (Exception e) {
+            System.out.println("Gagal mematikan suara: " + e.getMessage());
+        }
     }
 
     public static void main(String args[]) {
@@ -290,7 +300,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDisplayGambar;
-    private javax.swing.JLabel lblInf;
     private javax.swing.JTextArea p;
     private javax.swing.JPanel panelKanan;
     private javax.swing.JButton pull10;
