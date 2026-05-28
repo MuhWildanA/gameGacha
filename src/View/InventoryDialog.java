@@ -250,6 +250,7 @@ public class InventoryDialog extends javax.swing.JDialog {
 
         jScrollPane1.setOpaque(false);
 
+        panelItemsContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 20, 1));
         panelItemsContainer.setOpaque(false);
         panelItemsContainer.setLayout(new java.awt.GridLayout(0, 5, 5, 20));
         jScrollPane1.setViewportView(panelItemsContainer);

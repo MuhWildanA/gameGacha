@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +62,7 @@ public class TestFrame extends javax.swing.JFrame {
                 new Color(0, 0, 0, 190)
         );
 
+        lblCoinAmount.setText(String.valueOf(player.getTungCoin()));
         revalidate();
     }
 
@@ -188,6 +191,7 @@ public class TestFrame extends javax.swing.JFrame {
         btnAddCoin.setFocusPainted(false);
         btnAddCoin.setFocusable(false);
         btnAddCoin.setPreferredSize(new java.awt.Dimension(20, 20));
+        btnAddCoin.addActionListener(this::btnAddCoinActionPerformed);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         currencyPanel.add(btnAddCoin, gridBagConstraints);
@@ -252,6 +256,11 @@ public class TestFrame extends javax.swing.JFrame {
         menuContainer.add(menuInventory, gridBagConstraints);
 
         menuHistory.setBackground(new java.awt.Color(102, 102, 102));
+        menuHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHistoryMouseClicked(evt);
+            }
+        });
         menuHistory.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         lblIconHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/history.png"))); // NOI18N
@@ -313,13 +322,13 @@ public class TestFrame extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Gacha x1");
+        jLabel1.setText("Tung x1");
         jPanel1.add(jLabel1, new java.awt.GridBagConstraints());
 
         btnGacha1.setBackground(new java.awt.Color(240, 184, 61));
         btnGacha1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGacha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/tungCoin.png"))); // NOI18N
-        btnGacha1.setText("1x");
+        btnGacha1.setText("12x");
         btnGacha1.setBorder(null);
         btnGacha1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGacha1.setFocusPainted(false);
@@ -338,14 +347,14 @@ public class TestFrame extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(170, 11, 11));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Gacha x10");
+        jLabel2.setText("Tung x10");
         jPanel2.add(jLabel2, new java.awt.GridBagConstraints());
 
         btnGacha10.setBackground(new java.awt.Color(170, 11, 11));
         btnGacha10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGacha10.setForeground(new java.awt.Color(255, 255, 255));
         btnGacha10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/tungCoin.png"))); // NOI18N
-        btnGacha10.setText("10x");
+        btnGacha10.setText("100x");
         btnGacha10.setBorder(null);
         btnGacha10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGacha10.setFocusPainted(false);
@@ -371,6 +380,7 @@ public class TestFrame extends javax.swing.JFrame {
         btnReset.setText("Reset");
         btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReset.setFocusPainted(false);
+        btnReset.addActionListener(this::btnResetActionPerformed);
         resetContainer.add(btnReset, java.awt.BorderLayout.PAGE_END);
 
         bottomPanel.add(resetContainer, java.awt.BorderLayout.EAST);
@@ -418,6 +428,12 @@ public class TestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuDetailMouseClicked
 
     private void btnGacha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGacha1ActionPerformed
+        if (!player.useCoin(12)) {
+            JOptionPane.showMessageDialog(this, "tung coin tidak cukup");
+            return;
+        }
+
+        lblCoinAmount.setText(String.valueOf(player.getTungCoin()));
         Item hasil = gachaSystem.pull();
         player.addItem(hasil);
         List<Item> hasilList = new ArrayList<>();
@@ -436,12 +452,18 @@ public class TestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGacha1ActionPerformed
 
     private void btnGacha10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGacha10ActionPerformed
+        if (!player.useCoin(100)) {
+            JOptionPane.showMessageDialog(this, "tung coin tidak cukup");
+            return;
+        }
+        lblCoinAmount.setText(String.valueOf(player.getTungCoin()));
+
         List<Item> hasil10 = gachaSystem.pullTenTimes();
-        
-        for(Item item : hasil10){
+
+        for (Item item : hasil10) {
             player.addItem(item);
         }
-        
+
         lblPity.setText("Pity : " + gachaSystem.getPity() + " / 90");
         PullResultDialog dialog
                 = new PullResultDialog(
@@ -456,6 +478,59 @@ public class TestFrame extends javax.swing.JFrame {
         InventoryDialog d = new InventoryDialog(this, true, player.getInventory());
         d.setVisible(true);
     }//GEN-LAST:event_menuInventoryMouseClicked
+
+    private void menuHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHistoryMouseClicked
+//        HistoryDialog h = ;
+        new HistoryDialog(this, true, gachaSystem).setVisible(true);
+
+    }//GEN-LAST:event_menuHistoryMouseClicked
+
+    private void btnAddCoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCoinActionPerformed
+
+        ImageIcon icon = new ImageIcon(
+                getClass().getResource("/assets/images/tungCoin.png")
+        );
+
+        String input = (String) JOptionPane.showInputDialog(
+                this,
+                "TOP UP Tung Coin, masukkan jumlah : ",
+                "Top Up Tung Coin",
+                JOptionPane.PLAIN_MESSAGE,
+                icon,
+                null,
+                ""
+        );
+        if (input == null) {
+            return;
+        }
+
+        try {
+            int amount = Integer.parseInt(input);
+            if (amount <= 0) {
+                JOptionPane.showMessageDialog(this, "Jumlah top up harus lebih dari 0");
+                return;
+            }
+            player.addCoin(amount);
+            lblCoinAmount.setText(String.valueOf(player.getTungCoin()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "input harus angka");
+        }
+    }//GEN-LAST:event_btnAddCoinActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Semua progress anda akan di reset!, apakah anda yakin?", "Konfirmasi Reset", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        player.resetProgress();
+        gachaSystem.resetProgress();
+        lblCoinAmount.setText(String.valueOf(player.getTungCoin()));
+        lblPity.setText("Pity : " + String.valueOf(gachaSystem.getPity()) + " / 90");
+        JOptionPane.showMessageDialog(this, "Progress berhasil di reset");
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments

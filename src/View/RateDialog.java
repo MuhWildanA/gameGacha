@@ -78,7 +78,7 @@ public class RateDialog extends javax.swing.JDialog {
         panelContainer.add(topPanel, java.awt.BorderLayout.PAGE_START);
 
         bottomPanel.setBackground(new java.awt.Color(170, 11, 11));
-        bottomPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 40));
+        bottomPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         bottomPanel.setPreferredSize(new java.awt.Dimension(353, 30));
         bottomPanel.setLayout(new java.awt.BorderLayout());
 
@@ -88,7 +88,7 @@ public class RateDialog extends javax.swing.JDialog {
         btnBack.setBackground(new java.awt.Color(118, 7, 7));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("Back");
+        btnBack.setText("Close");
         btnBack.setBorderPainted(false);
         btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBack.setFocusPainted(false);
@@ -97,7 +97,7 @@ public class RateDialog extends javax.swing.JDialog {
 
         bottomPanel.add(jPanel1, java.awt.BorderLayout.EAST);
 
-        panelContainer.add(bottomPanel, java.awt.BorderLayout.PAGE_END);
+        panelContainer.add(bottomPanel, java.awt.BorderLayout.SOUTH);
 
         centerPanel.setBackground(new java.awt.Color(0, 0, 0));
         centerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 1, 1));
