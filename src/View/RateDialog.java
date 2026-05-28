@@ -4,6 +4,8 @@
  */
 package View;
 
+import java.awt.Color;
+
 /**
  *
  * @author mw300
@@ -18,6 +20,7 @@ public class RateDialog extends javax.swing.JDialog {
     public RateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     /**
@@ -28,7 +31,6 @@ public class RateDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         panelContainer = new javax.swing.JPanel();
         topPanel = new javax.swing.JPanel();
@@ -63,17 +65,19 @@ public class RateDialog extends javax.swing.JDialog {
         panelContainer.setBackground(new java.awt.Color(255, 255, 255));
         panelContainer.setLayout(new java.awt.BorderLayout());
 
-        topPanel.setBackground(new java.awt.Color(240, 184, 61));
+        topPanel.setBackground(new java.awt.Color(170, 11, 11));
+        topPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         topPanel.setPreferredSize(new java.awt.Dimension(353, 50));
         topPanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Rate Detail");
         topPanel.add(jLabel1, new java.awt.GridBagConstraints());
 
         panelContainer.add(topPanel, java.awt.BorderLayout.PAGE_START);
 
-        bottomPanel.setBackground(new java.awt.Color(240, 184, 61));
+        bottomPanel.setBackground(new java.awt.Color(170, 11, 11));
         bottomPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 40));
         bottomPanel.setPreferredSize(new java.awt.Dimension(353, 30));
         bottomPanel.setLayout(new java.awt.BorderLayout());
@@ -81,7 +85,7 @@ public class RateDialog extends javax.swing.JDialog {
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        btnBack.setBackground(new java.awt.Color(170, 11, 11));
+        btnBack.setBackground(new java.awt.Color(118, 7, 7));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("Back");
@@ -95,53 +99,66 @@ public class RateDialog extends javax.swing.JDialog {
 
         panelContainer.add(bottomPanel, java.awt.BorderLayout.PAGE_END);
 
-        centerPanel.setBackground(new java.awt.Color(255, 255, 255));
-        centerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 1, 1));
+        centerPanel.setBackground(new java.awt.Color(0, 0, 0));
+        centerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 1, 1));
         centerPanel.setLayout(new java.awt.GridLayout(3, 1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Pity 1 - 80");
         jPanel2.add(jLabel2);
         jPanel2.add(jLabel6);
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("★★★       = 65%");
         jPanel2.add(jLabel7);
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("★★★★    = 30%");
         jPanel2.add(jLabel8);
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("★★★★★ = 5%");
         jPanel2.add(jLabel9);
 
         centerPanel.add(jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Pity 81 - 89");
         jPanel3.add(jLabel3);
         jPanel3.add(jLabel10);
 
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("★★★       = 30%");
         jPanel3.add(jLabel11);
 
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("★★★★    = 25%");
         jPanel3.add(jLabel12);
 
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("★★★★★ = 45%");
         jPanel3.add(jLabel13);
 
         centerPanel.add(jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setOpaque(false);
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Pity 90");
         jPanel4.add(jLabel4);
         jPanel4.add(jLabel14);
 
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("★★★★★ = 100% [Guaranted]");
         jPanel4.add(jLabel17);
 

@@ -106,9 +106,9 @@ public class GachaSystem {
         poolBintang4.add(new Item("Boneca Ambalabu", 4, "/assets/images/8.png","/assets/sounds/tung-tung.wav"));
 
         // Isi Keranjang Bintang 5
-        poolBintang5.add(new Item("tung tung tung sahur", 5, "/assets/images/1.png","/assets/sounds/tung-tung.wav"));
-        poolBintang5.add(new Item("Bombardilo Crocodilo", 5, "/assets/images/2.png","/assets/sounds/tung-tung.wav"));
-        poolBintang5.add(new Item("Br Br Patapim", 5, "/assets/images/4.png","/assets/sounds/tung-tung.wav"));
-        poolBintang5.add(new Item("Tralalelo Tralala", 5, "/assets/images/3.png","/assets/sounds/tung-tung.wav"));
+        poolBintang5.add(new Item("tung tung tung sahur", 5, "/assets/images/tungtungCard2.png","/assets/sounds/tung-tung.wav"));
+//        poolBintang5.add(new Item("Bombardilo Crocodilo", 5, "/assets/images/2.png","/assets/sounds/tung-tung.wav"));
+//        poolBintang5.add(new Item("Br Br Patapim", 5, "/assets/images/4.png","/assets/sounds/tung-tung.wav"));
+//        poolBintang5.add(new Item("Tralalelo Tralala", 5, "/assets/images/3.png","/assets/sounds/tung-tung.wav"));
     }
 }

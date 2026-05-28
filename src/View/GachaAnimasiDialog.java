@@ -147,7 +147,7 @@ public class GachaAnimasiDialog extends javax.swing.JDialog {
 
         jPanelKonten.setLayout(new javax.swing.BoxLayout(jPanelKonten, javax.swing.BoxLayout.Y_AXIS));
 
-        lblDisplayGambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/1.png"))); // NOI18N
+        lblDisplayGambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/tungtungCard.png"))); // NOI18N
         lblDisplayGambar.setAlignmentX(0.5F);
         jPanelKonten.add(lblDisplayGambar);
 
