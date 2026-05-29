@@ -66,7 +66,7 @@ public class InventoryDialog extends javax.swing.JDialog {
             int jumlah = itemCount.get(item.getName());
 
             JPanel card = new JPanel();
-            card.setBackground(new Color(255, 255, 255, 255));
+            card.setBackground(Color.WHITE);
             card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             card.setLayout(new BorderLayout());
 
@@ -83,16 +83,18 @@ public class InventoryDialog extends javax.swing.JDialog {
 
             JLabel lblJumlah = new JLabel("owned : " + jumlah, JLabel.CENTER);
 
+     
+            
             card.add(lblImage, BorderLayout.CENTER);
             card.add(lblJumlah, BorderLayout.SOUTH);
 
             card.setPreferredSize(new Dimension(180, 260));
 
-            JPanel wrapper = new JPanel();
-            wrapper.setOpaque(false);
-            wrapper.setLayout(new GridBagLayout());
-
-            wrapper.add(card);
+//            JPanel wrapper = new JPanel();
+//            wrapper.setOpaque(false);
+//            wrapper.setLayout(new GridBagLayout());
+//
+//            wrapper.add(card);
 
             panelItemsContainer.add(card);
         }
