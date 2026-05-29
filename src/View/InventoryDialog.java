@@ -94,7 +94,7 @@ public class InventoryDialog extends javax.swing.JDialog {
 
             wrapper.add(card);
 
-            panelItemsContainer.add(wrapper);
+            panelItemsContainer.add(card);
         }
 
         lblS3Obtained.setText("Obtained : " + s3Obtained);
@@ -259,7 +259,7 @@ public class InventoryDialog extends javax.swing.JDialog {
 
         panelItemsContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 20, 1));
         panelItemsContainer.setOpaque(false);
-        panelItemsContainer.setLayout(new java.awt.GridLayout(0, 5, 5, 20));
+        panelItemsContainer.setLayout(new java.awt.GridLayout(0, 5));
         jScrollPane1.setViewportView(panelItemsContainer);
 
         containerCenter.add(jScrollPane1, java.awt.BorderLayout.CENTER);

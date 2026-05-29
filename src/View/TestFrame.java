@@ -10,8 +10,11 @@ import Model.Player;
 import View.PullResultDialog.PullMode;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -26,44 +29,110 @@ public class TestFrame extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TestFrame.class.getName());
     private Player player;
     private GachaSystem gachaSystem;
+    private BufferedImage[] banners;
+    private int currentBanner = 0;
+    private BannerPanel lblBanner;
+    private javax.swing.Timer bannerTimer;
 
     public TestFrame() {
         initComponents();
+
         gachaSystem = new GachaSystem();
         player = new Player();
+
+        // background
+        BackgroundPanel customBg = new BackgroundPanel();
+        customBg.setLayout(new java.awt.BorderLayout());
+
+        setContentPane(customBg);
+        customBg.add(mainPanel, java.awt.BorderLayout.CENTER);
+
+        // banner
+        lblBanner = new BannerPanel();
+
+        java.awt.Dimension bannerSize = new java.awt.Dimension(700, 350);
+        lblBanner.setPreferredSize(bannerSize);
+        lblBanner.setMinimumSize(bannerSize);
+        lblBanner.setMaximumSize(bannerSize);
+
+        bannerPanel.setLayout(new java.awt.BorderLayout());
+
+        bannerPanel.removeAll();
+
+// 5. Masukkan lblBanner langsung ke tengah bannerPanel
+        bannerPanel.add(lblBanner, java.awt.BorderLayout.CENTER);
+
+        // transparan
         mainPanel.setOpaque(false);
-        BackgroundPanel bgPanel = new BackgroundPanel();
 
-        setContentPane(bgPanel);
+        currencyPanel.setBackground(new Color(0, 0, 0, 120));
+        menuAnomali.setBackground(new Color(0, 0, 0, 120));
+        menuInventory.setBackground(new Color(0, 0, 0, 120));
+        menuHistory.setBackground(new Color(0, 0, 0, 120));
+        menuDetail.setBackground(new Color(0, 0, 0, 120));
+        pityBg.setBackground(new Color(0, 0, 0, 190));
 
-        bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-        currencyPanel.setBackground(
-                new Color(0, 0, 0, 120)
-        );
+        // load image
+        try {
+            // Pastikan array diinisialisasi dulu
+            banners = new BufferedImage[4];
 
-        bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-        menuAnomali.setBackground(
-                new Color(0, 0, 0, 120)
-        );
-        bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-        menuInventory.setBackground(
-                new Color(0, 0, 0, 120)
-        );
-        bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-        menuHistory.setBackground(
-                new Color(0, 0, 0, 120)
-        );
-        bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-        menuDetail.setBackground(
-                new Color(0, 0, 0, 120)
-        );
-        bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-        pityBg.setBackground(
-                new Color(0, 0, 0, 190)
-        );
+            // Load gambar dengan pengaman biar gak langsung crash kalau salah satu ilang
+            for (int i = 0; i < 4; i++) {
+                java.net.URL imgUrl = getClass().getResource("/assets/images/" + (i + 1) + ".png");
+                if (imgUrl != null) {
+                    banners[i] = ImageIO.read(imgUrl);
+                } else {
+                    System.out.println("PENGAMAN: Gambar " + (i + 1) + ".png gak ketemu jancok!");
+                }
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("ERROR PAS LOAD GAMBAR BANNER:");
+            e.printStackTrace();
+        }
+
+// Tampilkan banner pertama jika ada yang berhasil di-load
+        if (banners != null && banners[0] != null) {
+            setBanner(banners[0]);
+            startBannerSlider();
+        }
 
         lblCoinAmount.setText(String.valueOf(player.getTungCoin()));
+
         revalidate();
+        repaint();
+    }
+
+    private void startBannerSlider() {
+
+        if (bannerTimer != null && bannerTimer.isRunning()) {
+            bannerTimer.stop();
+        }
+
+        bannerTimer = new javax.swing.Timer(3000, e -> {
+            if (banners == null || banners.length == 0) {
+                return;
+            }
+
+            // Loop index banner (0 -> 1 -> 2 -> 3 -> balik ke 0)
+            currentBanner = (currentBanner + 1) % banners.length;
+
+            // Pasang gambar kalau tidak null
+            if (banners[currentBanner] != null) {
+                setBanner(banners[currentBanner]);
+            }
+        });
+
+        bannerTimer.start();
+    }
+
+    private void setBanner(BufferedImage image) {
+        lblBanner.setImage(image);
+        lblBanner.revalidate();
+        lblBanner.repaint();
+        bannerPanel.revalidate();
     }
 
     @SuppressWarnings("unchecked")
@@ -110,9 +179,7 @@ public class TestFrame extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
         dummyLeftPanel = new javax.swing.JPanel();
         rightPanel = new javax.swing.JPanel();
-        centerPanel = new javax.swing.JPanel();
-        bannerContainer = new javax.swing.JPanel();
-        lblBanner = new javax.swing.JLabel();
+        bannerPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anomali Gacha");
@@ -213,6 +280,12 @@ public class TestFrame extends javax.swing.JFrame {
         menuContainer.setLayout(new java.awt.GridBagLayout());
 
         menuAnomali.setBackground(new java.awt.Color(102, 102, 102));
+        menuAnomali.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuAnomali.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAnomaliMouseClicked(evt);
+            }
+        });
         menuAnomali.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         lblIconBintang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/star.png"))); // NOI18N
@@ -328,7 +401,7 @@ public class TestFrame extends javax.swing.JFrame {
         btnGacha1.setBackground(new java.awt.Color(240, 184, 61));
         btnGacha1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGacha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/tungCoin.png"))); // NOI18N
-        btnGacha1.setText("12x");
+        btnGacha1.setText("10");
         btnGacha1.setBorder(null);
         btnGacha1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGacha1.setFocusPainted(false);
@@ -354,7 +427,7 @@ public class TestFrame extends javax.swing.JFrame {
         btnGacha10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGacha10.setForeground(new java.awt.Color(255, 255, 255));
         btnGacha10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/tungCoin.png"))); // NOI18N
-        btnGacha10.setText("100x");
+        btnGacha10.setText("100");
         btnGacha10.setBorder(null);
         btnGacha10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGacha10.setFocusPainted(false);
@@ -396,17 +469,9 @@ public class TestFrame extends javax.swing.JFrame {
         rightPanel.setPreferredSize(new java.awt.Dimension(160, 100));
         mainPanel.add(rightPanel, java.awt.BorderLayout.LINE_END);
 
-        centerPanel.setOpaque(false);
-        centerPanel.setLayout(new java.awt.GridBagLayout());
-
-        bannerContainer.setLayout(new java.awt.BorderLayout());
-
-        lblBanner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/bg.png"))); // NOI18N
-        bannerContainer.add(lblBanner, java.awt.BorderLayout.CENTER);
-
-        centerPanel.add(bannerContainer, new java.awt.GridBagConstraints());
-
-        mainPanel.add(centerPanel, java.awt.BorderLayout.CENTER);
+        bannerPanel.setOpaque(false);
+        bannerPanel.setLayout(new java.awt.GridBagLayout());
+        mainPanel.add(bannerPanel, java.awt.BorderLayout.CENTER);
 
         bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
 
@@ -417,6 +482,9 @@ public class TestFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        if (bannerTimer != null && bannerTimer.isRunning()) {
+            bannerTimer.stop(); // Menghentikan hitungan 2 detik
+        }
         HalamanAwal h = new HalamanAwal();
         h.setVisible(true);
         this.dispose();
@@ -428,7 +496,7 @@ public class TestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuDetailMouseClicked
 
     private void btnGacha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGacha1ActionPerformed
-        if (!player.useCoin(12)) {
+        if (!player.useCoin(10)) {
             JOptionPane.showMessageDialog(this, "tung coin tidak cukup");
             return;
         }
@@ -532,6 +600,11 @@ public class TestFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Progress berhasil di reset");
     }//GEN-LAST:event_btnResetActionPerformed
 
+    private void menuAnomaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAnomaliMouseClicked
+        AnomaliDialog d = new AnomaliDialog(this, true, gachaSystem.getAllItems());
+        d.setVisible(true);
+    }//GEN-LAST:event_menuAnomaliMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -558,7 +631,7 @@ public class TestFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel bannerContainer;
+    private javax.swing.JPanel bannerPanel;
     private javax.swing.JPanel bgPanel;
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton btnAddCoin;
@@ -567,7 +640,6 @@ public class TestFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnGacha1;
     private javax.swing.JButton btnGacha10;
     private javax.swing.JButton btnReset;
-    private javax.swing.JPanel centerPanel;
     private javax.swing.JPanel currencyPanel;
     private javax.swing.JPanel dummyLeftPanel;
     private javax.swing.JPanel footerCenter;
@@ -577,7 +649,6 @@ public class TestFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAnomali;
-    private javax.swing.JLabel lblBanner;
     private javax.swing.JLabel lblCoinAmount;
     private javax.swing.JLabel lblDetail;
     private javax.swing.JLabel lblHistory;

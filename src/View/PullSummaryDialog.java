@@ -121,7 +121,7 @@ public class PullSummaryDialog extends javax.swing.JDialog {
 
         panelItems.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelItems.setOpaque(false);
-        panelItems.setLayout(new java.awt.GridLayout(2, 5));
+        panelItems.setLayout(new java.awt.GridLayout(0, 5));
         jScrollPane1.setViewportView(panelItems);
 
         panelContainer.add(jScrollPane1, java.awt.BorderLayout.CENTER);

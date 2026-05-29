@@ -96,6 +96,16 @@ public class GachaSystem {
     public List<PullHistory> getPoolHistory() {
         return new ArrayList<>(histories);
     }
+    
+    public List<Item> getAllItems(){
+        List<Item> allItems = new ArrayList<>();
+        
+        allItems.addAll(poolBintang3);
+        allItems.addAll(poolBintang4);
+        allItems.addAll(poolBintang5);
+        
+        return allItems;
+    }
 
     private void isiMasterDataPool() {
         poolBintang3.add(new Item("Trippi Troppi Troppa Trippa", 3, "/assets/images/Trippi.png", "/assets/sounds/Tripi troppi lengkap.wav"));
@@ -118,7 +128,7 @@ public class GachaSystem {
         poolBintang4.add(new Item("Sigma Boy", 4, "/assets/images/Sigma.png", "/assets/sounds/Sigma boy.wav"));
 
         // Isi Keranjang Bintang 5
-        poolBintang5.add(new Item("tung tung tung sahur", 5, "/assets/images/Tungtung.png", "/assets/sounds/TungTung sahur.wav"));
+        poolBintang5.add(new Item("Tung Tung Sahur", 5, "/assets/images/Tungtung.png", "/assets/sounds/TungTung sahur.wav"));
         poolBintang5.add(new Item("Bombardilo Crocodilo", 5, "/assets/images/Bombar.png","/assets/sounds/Bombardilo corcodilo.wav"));
         poolBintang5.add(new Item("Udin din din dun", 5, "/assets/images/Udin.png","/assets/sounds/Udin din dun.wav"));
         poolBintang5.add(new Item("Chimpanzini Bananini", 5, "/assets/images/Chimpanzini.png","/assets/sounds/Bananini.wav"));
