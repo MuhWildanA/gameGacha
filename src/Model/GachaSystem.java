@@ -98,22 +98,30 @@ public class GachaSystem {
     }
 
     private void isiMasterDataPool() {
-        poolBintang3.add(new Item("Sigma Boy", 3, "/assets/images/9.png", "/assets/sounds/tung-tung.wav"));
-        poolBintang3.add(new Item("Burbaloni Luliloli", 3, "/assets/images/10.png", "/assets/sounds/tung-tung.wav"));
-        poolBintang3.add(new Item("Karkirkur Karkarkur", 3, "/assets/images/11.png", "/assets/sounds/tung-tung.wav"));
-        poolBintang3.add(new Item("Udin din din dun", 3, "/assets/images/12.png", "/assets/sounds/tung-tung.wav"));
+        poolBintang3.add(new Item("Trippi Troppi Troppa Trippa", 3, "/assets/images/Trippi.png", "/assets/sounds/Tripi troppi lengkap.wav"));
+        poolBintang3.add(new Item("Br Br Patapim", 3, "/assets/images/Brbr.png", "/assets/sounds/Ber ber patapim.wav"));
+        poolBintang3.add(new Item("Lirili Larila", 3, "/assets/images/Lirili.png", "/assets/sounds/Liri lira lira.wav"));
+        poolBintang3.add(new Item("Bobrito Bondiro", 3, "/assets/images/Brobito.png", "/assets/sounds/Oborito bondito.wav"));
+        poolBintang3.add(new Item("Kar Kir Kur", 3, "/assets/images/Karkirkur.png", "/assets/sounds/Karkirkur.wav"));
+        poolBintang3.add(new Item("Bombolini Guzini", 3, "/assets/images/Bombo.png", "/assets/sounds/Bombanini guzini.wav"));
+        poolBintang3.add(new Item("Frigo Camelo", 3, "/assets/images/Frigo.png", "/assets/sounds/Frigo camelo.wav"));
+        poolBintang3.add(new Item("Anpalibabel", 3, "/assets/images/Anpalibabel.png", "/assets/sounds/Anpalibabel.wav"));
+        poolBintang3.add(new Item("Tatata Sahur", 3, "/assets/images/Tatata.png", "/assets/sounds/Tatata sahur.wav"));
+        poolBintang3.add(new Item("Cappucino Assasino", 3, "/assets/images/Cappucino.png", "/assets/sounds/Cappucino Assasino.wav"));
 
         // Isi Keranjang Bintang 4
-        poolBintang4.add(new Item("Balerina Cappucina", 4, "/assets/images/5.png", "/assets/sounds/tung-tung.wav"));
-        poolBintang4.add(new Item("Chimpanzini Bananini", 4, "/assets/images/6.png", "/assets/sounds/tung-tung.wav"));
-        poolBintang4.add(new Item("Lirili Larila", 4, "/assets/images/7.png", "/assets/sounds/tung-tung.wav"));
-        poolBintang4.add(new Item("Boneca Ambalabu", 4, "/assets/images/8.png", "/assets/sounds/tung-tung.wav"));
+        poolBintang4.add(new Item("Tralalelo Tralala", 4, "/assets/images/Tralalelo.png", "/assets/sounds/Tralale tralala.wav"));
+        poolBintang4.add(new Item("Boneca Ambalabu", 4, "/assets/images/Boneca.png", "/assets/sounds/Boneka ambalabu.wav"));
+        poolBintang4.add(new Item("Burbaloni Luliloni", 4, "/assets/images/Burba.png", "/assets/sounds/Burbaloni lulliloli.wav"));
+        poolBintang4.add(new Item("Ballerina Cappucina", 4, "/assets/images/Baleri.png", "/assets/sounds/Balerina kapucina.wav"));
+        poolBintang4.add(new Item("La Vaca Saturno Saturnita", 4, "/assets/images/Lavaca.png", "/assets/sounds/Labaca sturno saturnita.wav"));
+        poolBintang4.add(new Item("Sigma Boy", 4, "/assets/images/Sigma.png", "/assets/sounds/Sigma boy.wav"));
 
         // Isi Keranjang Bintang 5
-        poolBintang5.add(new Item("tung tung tung sahur", 5, "/assets/images/tungtungCard2.png", "/assets/sounds/tung-tung.wav"));
-//        poolBintang5.add(new Item("Bombardilo Crocodilo", 5, "/assets/images/2.png","/assets/sounds/tung-tung.wav"));
-//        poolBintang5.add(new Item("Br Br Patapim", 5, "/assets/images/4.png","/assets/sounds/tung-tung.wav"));
-//        poolBintang5.add(new Item("Tralalelo Tralala", 5, "/assets/images/3.png","/assets/sounds/tung-tung.wav"));
+        poolBintang5.add(new Item("tung tung tung sahur", 5, "/assets/images/Tungtung.png", "/assets/sounds/TungTung sahur.wav"));
+        poolBintang5.add(new Item("Bombardilo Crocodilo", 5, "/assets/images/Bombar.png","/assets/sounds/Bombardilo corcodilo.wav"));
+        poolBintang5.add(new Item("Udin din din dun", 5, "/assets/images/Udin.png","/assets/sounds/Udin din dun.wav"));
+        poolBintang5.add(new Item("Chimpanzini Bananini", 5, "/assets/images/Chimpanzini.png","/assets/sounds/Bananini.wav"));
     }
 
     public void resetProgress() {

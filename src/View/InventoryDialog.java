@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,21 +57,27 @@ public class InventoryDialog extends javax.swing.JDialog {
             itemData.put(item.getName(), item);
         }
 
-        for (String itemName : itemCount.keySet()) {
-            Item item = itemData.get(itemName);
-            int jumlah = itemCount.get(itemName);
+        List<Item> sortedItems = new ArrayList<>(itemData.values());
+
+        sortedItems.sort((a, b) -> Integer.compare(b.getRarity(), a.getRarity()));
+
+        for (Item item : sortedItems) {
+
+            int jumlah = itemCount.get(item.getName());
 
             JPanel card = new JPanel();
             card.setBackground(new Color(255, 255, 255, 255));
             card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             card.setLayout(new BorderLayout());
 
-//            JPanel obtainInfoPanel = new JPanel();
             ImageIcon icon = new ImageIcon(getClass().getResource(item.getImagePath()));
             Image img = icon.getImage();
+
             int newHeight = 250;
             int newWidth = (img.getWidth(null) * newHeight) / img.getHeight(null);
+
             Image scaled = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
             JLabel lblImage = new JLabel(new ImageIcon(scaled));
             lblImage.setHorizontalAlignment(JLabel.CENTER);
 
@@ -78,8 +85,9 @@ public class InventoryDialog extends javax.swing.JDialog {
 
             card.add(lblImage, BorderLayout.CENTER);
             card.add(lblJumlah, BorderLayout.SOUTH);
+
             card.setPreferredSize(new Dimension(180, 260));
-            
+
             JPanel wrapper = new JPanel();
             wrapper.setOpaque(false);
             wrapper.setLayout(new GridBagLayout());
@@ -87,7 +95,6 @@ public class InventoryDialog extends javax.swing.JDialog {
             wrapper.add(card);
 
             panelItemsContainer.add(wrapper);
-            
         }
 
         lblS3Obtained.setText("Obtained : " + s3Obtained);
