@@ -7,6 +7,7 @@ package View;
 import Model.GachaSystem;
 import Model.Item;
 import Model.Player;
+import Model.SoundPlayer;
 import View.PullResultDialog.PullMode;
 
 import java.awt.Color;
@@ -103,6 +104,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         revalidate();
         repaint();
+        SoundPlayer.playBGM("/assets/sounds/bgm.wav");
     }
 
     private void startBannerSlider() {

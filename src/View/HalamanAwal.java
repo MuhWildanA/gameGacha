@@ -1,5 +1,6 @@
 package View;
 
+import Model.SoundPlayer;
 import java.awt.Color;
 
 public class HalamanAwal extends javax.swing.JFrame {
@@ -17,6 +18,7 @@ public class HalamanAwal extends javax.swing.JFrame {
         bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
 
         revalidate();
+        SoundPlayer.playBGM("/assets/sounds/bgm.wav");
     }
 
     /**

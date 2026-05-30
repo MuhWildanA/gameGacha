@@ -58,12 +58,12 @@ public class PullResultDialog extends javax.swing.JDialog {
         jPanelMain.add(charPanel);
         jPanelMain.revalidate();
         jPanelMain.repaint();
-        SoundPlayer.play(item.getSoundPath());
+        SoundPlayer.playAnomaliSFX(item.getSoundPath());
         jPanelMain.setOpaque(false);
     }
 
     private void selesaiDialog(){
-        SoundPlayer.stop();
+        SoundPlayer.stopAnomaliSFX();
         dispose();
         if(mode == PullMode.MULTI){
             PullSummaryDialog summary = new PullSummaryDialog((Frame) getParent(), true, items);
