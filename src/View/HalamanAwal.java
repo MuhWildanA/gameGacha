@@ -2,14 +2,18 @@ package View;
 
 import Model.SoundPlayer;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JProgressBar;
+import javax.swing.SwingWorker;
 
 public class HalamanAwal extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HalamanAwal.class.getName());
+    private javax.swing.JProgressBar progressBar;
 
     public HalamanAwal() {
         initComponents();
-        
+
         mainPanel.setOpaque(false);
         BackgroundPanel bgPanel = new BackgroundPanel();
 
@@ -17,8 +21,33 @@ public class HalamanAwal extends javax.swing.JFrame {
 
         bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
 
+        initLoadingBar();
         revalidate();
         SoundPlayer.playBGM("/assets/sounds/bgm.wav");
+        if (Model.SoundPlayer.isBgmMuted()) {
+            btnBgmSound.setSelected(true);
+            btnBgmSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+        }
+        if (Model.SoundPlayer.isSfxMuted()) {
+            btnSfxSound.setSelected(true);
+            btnSfxSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+        }
+    }
+
+    private void initLoadingBar() {
+        progressBar = new JProgressBar(0, 100);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true); // Menampilkan teks persentase %
+        progressBar.setVisible(false);       // Disembunyikan dulu di awal
+        progressBar.setPreferredSize(new java.awt.Dimension(500, 25));
+        progressBar.setForeground(new Color(240, 184, 61)); // Warna senada tombol Play
+
+        // Masukkan ke dalam jPanel1 tepat di bawah tombol Play
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new java.awt.Insets(15, 0, 0, 0); // Memberi jarak dari tombol Play
+        botPnanel.add(progressBar, gbc);
     }
 
     /**
@@ -29,11 +58,22 @@ public class HalamanAwal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         bgPanel = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        botPnanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        topPanel = new javax.swing.JPanel();
+        soundSettingPanel = new javax.swing.JPanel();
+        bgmSoundPanel = new javax.swing.JPanel();
+        btnBgmSound = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        bgmSoundPanel1 = new javax.swing.JPanel();
+        btnSfxSound = new javax.swing.JToggleButton();
+        jLabel3 = new javax.swing.JLabel();
+        closePanel = new javax.swing.JPanel();
+        closeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anomali Gacha");
@@ -43,20 +83,102 @@ public class HalamanAwal extends javax.swing.JFrame {
 
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(1010, 180));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        botPnanel.setOpaque(false);
+        botPnanel.setPreferredSize(new java.awt.Dimension(1010, 180));
+        botPnanel.setLayout(new java.awt.GridBagLayout());
 
         jButton1.setBackground(new java.awt.Color(240, 184, 61));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButton1.setText("Play");
         jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
         jButton1.setPreferredSize(new java.awt.Dimension(140, 45));
         jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel1.add(jButton1, new java.awt.GridBagConstraints());
+        botPnanel.add(jButton1, new java.awt.GridBagConstraints());
 
-        mainPanel.add(jPanel1, java.awt.BorderLayout.PAGE_END);
+        mainPanel.add(botPnanel, java.awt.BorderLayout.PAGE_END);
+
+        topPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 20));
+        topPanel.setOpaque(false);
+        topPanel.setLayout(new java.awt.BorderLayout());
+
+        soundSettingPanel.setOpaque(false);
+        soundSettingPanel.setPreferredSize(new java.awt.Dimension(200, 100));
+        soundSettingPanel.setLayout(new java.awt.GridBagLayout());
+
+        bgmSoundPanel.setOpaque(false);
+        bgmSoundPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bgmSoundPanelMouseClicked(evt);
+            }
+        });
+        bgmSoundPanel.setLayout(new java.awt.GridBagLayout());
+
+        btnBgmSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/sound_on.png"))); // NOI18N
+        btnBgmSound.setBorderPainted(false);
+        btnBgmSound.setContentAreaFilled(false);
+        btnBgmSound.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBgmSound.setFocusPainted(false);
+        btnBgmSound.addActionListener(this::btnBgmSoundActionPerformed);
+        bgmSoundPanel.add(btnBgmSound, new java.awt.GridBagConstraints());
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Background Music");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        bgmSoundPanel.add(jLabel1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        soundSettingPanel.add(bgmSoundPanel, gridBagConstraints);
+
+        bgmSoundPanel1.setOpaque(false);
+        bgmSoundPanel1.setLayout(new java.awt.GridBagLayout());
+
+        btnSfxSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/sound_on.png"))); // NOI18N
+        btnSfxSound.setBorderPainted(false);
+        btnSfxSound.setContentAreaFilled(false);
+        btnSfxSound.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSfxSound.setFocusPainted(false);
+        btnSfxSound.addActionListener(this::btnSfxSoundActionPerformed);
+        bgmSoundPanel1.add(btnSfxSound, new java.awt.GridBagConstraints());
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Sound Effect");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        bgmSoundPanel1.add(jLabel3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        soundSettingPanel.add(bgmSoundPanel1, gridBagConstraints);
+
+        topPanel.add(soundSettingPanel, java.awt.BorderLayout.WEST);
+
+        closePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
+        closePanel.setOpaque(false);
+        closePanel.setLayout(new java.awt.BorderLayout());
+
+        closeBtn.setBackground(new java.awt.Color(170, 11, 11));
+        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/close.png"))); // NOI18N
+        closeBtn.setBorderPainted(false);
+        closeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        closeBtn.setFocusPainted(false);
+        closeBtn.setPreferredSize(new java.awt.Dimension(40, 40));
+        closeBtn.addActionListener(this::closeBtnActionPerformed);
+        closePanel.add(closeBtn, java.awt.BorderLayout.NORTH);
+
+        topPanel.add(closePanel, java.awt.BorderLayout.LINE_END);
+
+        mainPanel.add(topPanel, java.awt.BorderLayout.PAGE_START);
 
         bgPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
 
@@ -67,10 +189,79 @@ public class HalamanAwal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        TestFrame f = new TestFrame();
-        f.setVisible(true);
-        this.dispose();
+        jButton1.setVisible(false);
+        progressBar.setVisible(true);
+        botPnanel.revalidate();
+        botPnanel.repaint();
+
+        // 2. Gunakan SwingWorker agar proses pemuatan data tidak membekukan aplikasi
+        SwingWorker<TestFrame, Integer> worker = new SwingWorker<>() {
+            @Override
+            protected TestFrame doInBackground() throws Exception {
+                // Simulasi animasi loading bar bergerak bertahap
+                for (int i = 0; i <= 100; i += 5) {
+                    Thread.sleep(30); // Kecepatan loading (bisa disesuaikan)
+                    publish(i);       // Mengirim nilai progress ke metode process()
+                }
+
+                // Memuat frame utama di latar belakang
+                return new TestFrame();
+            }
+
+            @Override
+            protected void process(java.util.List<Integer> chunks) {
+                // Memperbarui nilai loading bar pada EDT secara aman
+                int latestProgress = chunks.get(chunks.size() - 1);
+                progressBar.setValue(latestProgress);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    // Ambil hasil instansiasi TestFrame yang sudah matang
+                    TestFrame f = get();
+                    f.setVisible(true);
+
+                    // Tutup HalamanAwal
+                    HalamanAwal.this.dispose();
+                } catch (Exception ex) {
+                    logger.log(java.util.logging.Level.SEVERE, "Gagal memuat halaman utama", ex);
+                }
+            }
+        };
+
+        // Jalankan worker thread
+        worker.execute();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBgmSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBgmSoundActionPerformed
+        if (btnBgmSound.isSelected()) {
+            btnBgmSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+            SoundPlayer.muteBGM();
+
+        } else {
+            btnBgmSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_on.png")));
+            SoundPlayer.unmuteBGM();
+        }
+    }//GEN-LAST:event_btnBgmSoundActionPerformed
+
+    private void btnSfxSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSfxSoundActionPerformed
+        if (btnSfxSound.isSelected()) {
+            btnSfxSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+            SoundPlayer.muteSFX();
+        } else {
+            btnSfxSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_on.png")));
+            SoundPlayer.unmuteSFX();
+        }
+    }//GEN-LAST:event_btnSfxSoundActionPerformed
+
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_closeBtnActionPerformed
+
+    private void bgmSoundPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgmSoundPanelMouseClicked
+
+    }//GEN-LAST:event_bgmSoundPanelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -99,8 +290,18 @@ public class HalamanAwal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bgPanel;
+    private javax.swing.JPanel bgmSoundPanel;
+    private javax.swing.JPanel bgmSoundPanel1;
+    private javax.swing.JPanel botPnanel;
+    private javax.swing.JToggleButton btnBgmSound;
+    private javax.swing.JToggleButton btnSfxSound;
+    private javax.swing.JButton closeBtn;
+    private javax.swing.JPanel closePanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel soundSettingPanel;
+    private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 }

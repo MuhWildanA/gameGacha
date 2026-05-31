@@ -22,6 +22,7 @@ public class PullResultDialog extends javax.swing.JDialog {
     private List<Item> items;
     private int currentIndex = 0;
     private PullMode mode;
+    private ConfettiPanel activeConfetti = null;
 
     public enum PullMode {
         SINGLE,
@@ -41,7 +42,7 @@ public class PullResultDialog extends javax.swing.JDialog {
 
         initComponents();
 
-        tittlePanel.setBackground(new Color(0,0,0, 180));
+        tittlePanel.setBackground(new Color(0, 0, 0, 180));
 
         tampilkanItem(items.get(0));
 
@@ -58,18 +59,32 @@ public class PullResultDialog extends javax.swing.JDialog {
         jPanelMain.add(charPanel);
         jPanelMain.revalidate();
         jPanelMain.repaint();
+        if (item.getRarity() == 5) {
+            activeConfetti = new ConfettiPanel(getWidth(), getHeight());
+            setGlassPane(activeConfetti);
+            activeConfetti.setVisible(true);
+        } else {
+            // Jika item berikutnya bukan bintang 5, pastikan Glass Pane dikosongkan/disembunyikan
+            getGlassPane().setVisible(false);
+        }
         SoundPlayer.playAnomaliSFX(item.getSoundPath());
         jPanelMain.setOpaque(false);
     }
 
-    private void selesaiDialog(){
+    private void selesaiDialog() {
+        if (activeConfetti != null) {
+            activeConfetti.stopConfetti(); // Menghentikan timer internal confetti
+            activeConfetti = null;         // Kosongkan referensi memori
+        }
         SoundPlayer.stopAnomaliSFX();
         dispose();
-        if(mode == PullMode.MULTI){
+        if (mode == PullMode.MULTI) {
             PullSummaryDialog summary = new PullSummaryDialog((Frame) getParent(), true, items);
             summary.setVisible(true);
         }
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -163,6 +178,10 @@ public class PullResultDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        if (activeConfetti != null) {
+            activeConfetti.stopConfetti(); // Menghentikan timer internal confetti
+            activeConfetti = null;         // Kosongkan referensi memori
+        }
         if (mode == PullMode.SINGLE) {
             selesaiDialog();
             return;
@@ -173,7 +192,6 @@ public class PullResultDialog extends javax.swing.JDialog {
             selesaiDialog();
             return;
         }
-
         tampilkanItem(items.get(currentIndex));
     }//GEN-LAST:event_btnNextActionPerformed
 

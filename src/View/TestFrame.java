@@ -84,7 +84,7 @@ public class TestFrame extends javax.swing.JFrame {
                 if (imgUrl != null) {
                     banners[i] = ImageIO.read(imgUrl);
                 } else {
-                    System.out.println("PENGAMAN: Gambar " + (i + 1) + ".png gak ketemu jancok!");
+                    System.out.println("PENGAMAN: Gambar " + (i + 1) + ".png gak ketemu!");
                 }
             }
 
@@ -591,7 +591,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         int confirm = JOptionPane.showConfirmDialog(this, "Semua progress anda akan di reset!, apakah anda yakin?", "Konfirmasi Reset", JOptionPane.YES_NO_OPTION);
 
-        if (confirm == JOptionPane.NO_OPTION) {
+        if (confirm != JOptionPane.YES_OPTION) {
             return;
         }
 

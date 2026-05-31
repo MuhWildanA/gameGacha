@@ -58,30 +58,25 @@ public class AnomaliDialog extends javax.swing.JDialog {
                 continue;
             }
 
+            // 1. Inisialisasi CharacterDisplayPanel menggunakan path gambar dari objek item
+            CharacterDisplayPanel panelGambarTampil = new CharacterDisplayPanel(item.getImagePath());
 
-            ImageIcon icon = new ImageIcon(
-                    getClass().getResource(item.getImagePath())
-            );
+            // 2. Tentukan ukuran dimensi komponen panel gambar agar seragam (Tinggi: 250)
+            // Nilai lebar disesuaikan secara proporsional atau menggunakan batas default kartu (misal: 180)
+            panelGambarTampil.setPreferredSize(new java.awt.Dimension(180, 250));
 
-            Image img = icon.getImage();
+            // 3. Masukkan komponen panel gambar yang tajam langsung ke dalam panel target
+            targetPanel.add(panelGambarTampil);
 
-            int newHeight = 250;
-            int newWidth = (img.getWidth(null) * newHeight) / img.getHeight(null);
-
-            Image scaled = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-
-            JLabel lbl = new JLabel(new ImageIcon(scaled));
-            lbl.setHorizontalAlignment(JLabel.CENTER);
-
-            targetPanel.add(lbl);
+            // 4. Segarkan tata letak panel target setelah komponen baru ditambahkan
+            targetPanel.revalidate();
+            targetPanel.repaint();
         }
 
+        // Segarkan seluruh kontainer utama halaman untuk memastikan semua elemen rendering dengan sempurna
         panel5star.revalidate();
         panel4star.revalidate();
         panel3star.revalidate();
-
-        mainPanel.revalidate();
-        mainPanel.repaint();
 
         mainPanel.revalidate();
         mainPanel.repaint();
@@ -143,12 +138,16 @@ public class AnomaliDialog extends javax.swing.JDialog {
 
         closePanel.setBackground(new java.awt.Color(51, 51, 51));
         closePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        closePanel.setOpaque(false);
         closePanel.setPreferredSize(new java.awt.Dimension(40, 0));
         closePanel.setLayout(new java.awt.GridBagLayout());
 
+        btnClose.setBackground(new java.awt.Color(170, 11, 11));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/close.png"))); // NOI18N
         btnClose.setBorder(null);
+        btnClose.setBorderPainted(false);
         btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClose.setFocusPainted(false);
         btnClose.setMaximumSize(new java.awt.Dimension(40, 40));
         btnClose.setMinimumSize(new java.awt.Dimension(30, 30));
         btnClose.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -177,7 +176,6 @@ public class AnomaliDialog extends javax.swing.JDialog {
         jScrollPane1.setOpaque(false);
 
         mainPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        mainPanel.setPreferredSize(null);
         mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.Y_AXIS));
 
         panel5star.setOpaque(false);

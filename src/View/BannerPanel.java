@@ -18,7 +18,6 @@ public class BannerPanel extends JPanel {
     private static final int REFRESH_RATE = 25;   // Update tiap 25ms biar smooth (40 FPS)
 
     public void setImage(BufferedImage image) {
-        // Kalau belum ada gambar sama sekali, langsung pasang tanpa animasi
         if (this.currentImage == null) {
             this.currentImage = image;
             repaint();

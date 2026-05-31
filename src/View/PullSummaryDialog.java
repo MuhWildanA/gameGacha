@@ -36,16 +36,18 @@ public class PullSummaryDialog extends javax.swing.JDialog {
         panelContainer.setBackground(new Color(0, 0, 0, 160));
 
         for (Item item : items) {
-            ImageIcon icon = new ImageIcon(getClass().getResource(item.getImagePath()));
-            Image img = icon.getImage();
-            int newHeight = 250;
-            int newWidth = (img.getWidth(null) * newHeight) / img.getHeight(null);
-            Image scaled = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-            JLabel lbl = new JLabel(new ImageIcon(scaled));
-            lbl.setHorizontalAlignment(JLabel.CENTER);
-            panelItems.add(lbl);
+            // 1. Inisialisasi CharacterDisplayPanel menggunakan path gambar dari objek item
+            CharacterDisplayPanel panelGambarTampil = new CharacterDisplayPanel(item.getImagePath());
+
+            // 2. Tentukan ukuran dimensi komponen panel gambar (Tinggi: 250)
+            // Lebar disesuaikan secara proporsional atau menggunakan batas default kartu (misal: 180)
+            panelGambarTampil.setPreferredSize(new java.awt.Dimension(180, 250));
+
+            // 3. Masukkan komponen panel gambar yang tajam langsung ke dalam panelItems
+            panelItems.add(panelGambarTampil);
         }
 
+// 4. Segarkan tata letak dan grafik panelItems setelah semua komponen baru dimasukkan
         panelItems.revalidate();
         panelItems.repaint();
     }
@@ -71,8 +73,9 @@ public class PullSummaryDialog extends javax.swing.JDialog {
 
         panelContainer.setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 20));
         jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(1022, 30));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1022, 50));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,7 +99,7 @@ public class PullSummaryDialog extends javax.swing.JDialog {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 48, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.WEST);
@@ -104,6 +107,7 @@ public class PullSummaryDialog extends javax.swing.JDialog {
         jPanel4.setPreferredSize(new java.awt.Dimension(40, 5));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
+        btnClose.setBackground(new java.awt.Color(170, 11, 11));
         btnClose.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/close.png"))); // NOI18N
         btnClose.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));

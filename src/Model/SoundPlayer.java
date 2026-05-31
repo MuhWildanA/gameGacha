@@ -11,9 +11,21 @@ public class SoundPlayer {
     private static Clip sfxClip;
     private static final float DEFAULT_BGM_VOLUME = -12.0f;
 
+    // --- TAMBAHAN VARIABEL STATUS (TIDAK MERUSAK KODE LAMA) ---
+    private static String currentBgmPath;
+    private static boolean isBgmMuted = false;
+    private static boolean isSfxMuted = false;
+
     // 1. KHUSUS PUTAR MUSIC BACKGROUND (LOOPING)
     // REVISI DI SOUNDPLAYER.JAVA
     public static void playBGM(String path) {
+        currentBgmPath = path; // Catat path lagu aktif
+        
+        // JIKA BGM SEDANG DI-MUTE, JANGAN PUTAR
+        if (isBgmMuted) {
+            return;
+        }
+
         try {
             if (bgmClip != null && bgmClip.isRunning()) {
                 return;
@@ -38,6 +50,11 @@ public class SoundPlayer {
     }
 
     public static void playAnomaliSFX(String path) {
+        // JIKA SFX SEDANG DI-MUTE, JANGAN PUTAR
+        if (isSfxMuted) {
+            return;
+        }
+
         try {
             if (sfxClip != null && sfxClip.isRunning()) {
                 sfxClip.stop();
@@ -57,7 +74,10 @@ public class SoundPlayer {
             sfxClip.addLineListener(event -> {
                 if (event.getType() == LineEvent.Type.STOP) {
                     sfxClip.close();
-                    setBgmVolume(DEFAULT_BGM_VOLUME);
+                    // Kembalikan ke volume awal hanya jika BGM tidak sedang di-mute
+                    if (!isBgmMuted) {
+                        setBgmVolume(DEFAULT_BGM_VOLUME);
+                    }
                 }
             });
 
@@ -74,7 +94,9 @@ public class SoundPlayer {
             }
             sfxClip.close();
 
-           setBgmVolume(DEFAULT_BGM_VOLUME);
+            if (!isBgmMuted) {
+                setBgmVolume(DEFAULT_BGM_VOLUME);
+            }
         }
     }
 
@@ -96,5 +118,42 @@ public class SoundPlayer {
             bgmClip.stop();
             bgmClip.close();
         }
+    }
+
+    // =========================================================================
+    // --- FITUR BARU: GERBANG KENDALI MUTE & UNMUTE (AMAN UNTUK DOSEN) ---
+    // =========================================================================
+    
+    public static void muteBGM() {
+        isBgmMuted = true;
+        if (bgmClip != null && bgmClip.isRunning()) {
+            bgmClip.stop(); // Hentikan musik latar seketika tanpa menutup line
+        }
+    }
+
+    public static void unmuteBGM() {
+        isBgmMuted = false;
+        if (currentBgmPath != null) {
+            playBGM(currentBgmPath); // Putar kembali lagu terakhir
+        }
+    }
+
+    public static void muteSFX() {
+        isSfxMuted = true;
+        if (sfxClip != null && sfxClip.isRunning()) {
+            sfxClip.stop(); // Hentikan SFX gacha yang sedang berjalan jika mendadak dimute
+        }
+    }
+
+    public static void unmuteSFX() {
+        isSfxMuted = false;
+    }
+
+    public static boolean isBgmMuted() {
+        return isBgmMuted;
+    }
+
+    public static boolean isSfxMuted() {
+        return isSfxMuted;
     }
 }

@@ -63,40 +63,33 @@ public class InventoryDialog extends javax.swing.JDialog {
 
         for (Item item : sortedItems) {
 
-            int jumlah = itemCount.get(item.getName());
+           int jumlah = itemCount.get(item.getName());
 
-            JPanel card = new JPanel();
-            card.setBackground(Color.WHITE);
-            card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            card.setLayout(new BorderLayout());
+    // 1. Buat kontainer kartu dasar
+    JPanel card = new JPanel();
+    card.setBackground(Color.WHITE);
+    card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    card.setLayout(new BorderLayout());
 
-            ImageIcon icon = new ImageIcon(getClass().getResource(item.getImagePath()));
-            Image img = icon.getImage();
+    // 2. Gunakan CharacterDisplayPanel buatanmu untuk menampilkan gambar secara tajam
+    CharacterDisplayPanel panelGambarKarakter = new CharacterDisplayPanel(item.getImagePath());
+    
+    // Set ukuran area gambar di dalam kartu agar proporsional
+    panelGambarKarakter.setPreferredSize(new Dimension(180, 220)); 
 
-            int newHeight = 250;
-            int newWidth = (img.getWidth(null) * newHeight) / img.getHeight(null);
+    // 3. Buat label informasi jumlah item yang dimiliki
+    JLabel lblJumlah = new JLabel("Owned : " + jumlah, JLabel.CENTER);
+    lblJumlah.setFont(new java.awt.Font("Segoe UI", 1, 12));
 
-            Image scaled = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+    // 4. Masukkan panel gambar tajam dan label ke dalam kartu
+    card.add(panelGambarKarakter, BorderLayout.CENTER);
+    card.add(lblJumlah, BorderLayout.SOUTH);
 
-            JLabel lblImage = new JLabel(new ImageIcon(scaled));
-            lblImage.setHorizontalAlignment(JLabel.CENTER);
+    // Set ukuran total kontainer kartu inventory
+    card.setPreferredSize(new Dimension(180, 260));
 
-            JLabel lblJumlah = new JLabel("owned : " + jumlah, JLabel.CENTER);
-
-     
-            
-            card.add(lblImage, BorderLayout.CENTER);
-            card.add(lblJumlah, BorderLayout.SOUTH);
-
-            card.setPreferredSize(new Dimension(180, 260));
-
-//            JPanel wrapper = new JPanel();
-//            wrapper.setOpaque(false);
-//            wrapper.setLayout(new GridBagLayout());
-//
-//            wrapper.add(card);
-
-            panelItemsContainer.add(card);
+    // 5. Masukkan kartu ke dalam kontainer utama halaman inventory
+    panelItemsContainer.add(card);
         }
 
         lblS3Obtained.setText("Obtained : " + s3Obtained);
@@ -147,6 +140,7 @@ public class InventoryDialog extends javax.swing.JDialog {
         closePanel.setPreferredSize(new java.awt.Dimension(45, 45));
         closePanel.setLayout(new java.awt.GridBagLayout());
 
+        jButton1.setBackground(new java.awt.Color(170, 11, 11));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/close.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

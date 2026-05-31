@@ -4,9 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/NetBeans/GameGacha/src/View/TestFrame.java</file>
-            <file>file:/D:/NetBeans/GameGacha/src/View/BannerPanel.java</file>
             <file>file:/D:/NetBeans/GameGacha/src/View/HalamanAwal.java</file>
             <file>file:/D:/NetBeans/GameGacha/src/View/InventoryDialog.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/Model/SoundPlayer.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/PullResultDialog.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/Model/GachaSystem.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/BannerPanel.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/BackgroundPanel.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/AnomaliDialog.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/CharacterDisplayPanel.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/PullSummaryDialog.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/RateDialog.java</file>
+            <file>file:/D:/NetBeans/GameGacha/src/View/GachaAnimasiDialog.java</file>
         </group>
     </open-files>
 </project-private>
