@@ -78,6 +78,7 @@ public class HalamanAwal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anomali Gacha");
         setBackground(new java.awt.Color(0, 0, 0));
+        setExtendedState(6);
 
         bgPanel.setLayout(new java.awt.BorderLayout());
 
@@ -128,9 +129,7 @@ public class HalamanAwal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Background Music");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        bgmSoundPanel.add(jLabel1, gridBagConstraints);
+        bgmSoundPanel.add(jLabel1, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

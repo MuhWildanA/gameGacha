@@ -13,7 +13,7 @@ public class GachaSystem {
     private List<PullHistory> histories;
     private int totalPull;
 
-    private int pityCounter; // Mengikuti attribute di dokumen tugas
+    private int pityCounter;
     private Random random;
 
     public GachaSystem() {
@@ -108,7 +108,7 @@ public class GachaSystem {
     }
 
     private void isiMasterDataPool() {
-        poolBintang3.add(new Item("Trippi Troppi Troppa Trippa", 3, "/assets/images/Trippi.png", "/assets/sounds/Tripi troppi lengkap.wav"));
+        poolBintang3.add(   new Item("Trippi Troppi Troppa Trippa", 3, "/assets/images/Trippi.png", "/assets/sounds/Tripi troppi lengkap.wav"));
         poolBintang3.add(new Item("Br Br Patapim", 3, "/assets/images/Brbr.png", "/assets/sounds/Ber ber patapim.wav"));
         poolBintang3.add(new Item("Lirili Larila", 3, "/assets/images/Lirili.png", "/assets/sounds/Liri lira lira.wav"));
         poolBintang3.add(new Item("Bobrito Bondiro", 3, "/assets/images/Brobito.png", "/assets/sounds/Oborito bondito.wav"));

@@ -34,7 +34,6 @@ public class BannerPanel extends JPanel {
 
         // Hitung berapa kali alpha harus dikurangi tiap refresh rate
         float alphaStep = (float) REFRESH_RATE / FADE_DURATION;
-
         fadeTimer = new Timer(REFRESH_RATE, e -> {
             alpha -= alphaStep;
             

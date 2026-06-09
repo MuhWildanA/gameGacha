@@ -105,6 +105,14 @@ public class TestFrame extends javax.swing.JFrame {
         revalidate();
         repaint();
         SoundPlayer.playBGM("/assets/sounds/bgm.wav");
+        if (Model.SoundPlayer.isBgmMuted()) {
+            btnBgmSound.setSelected(true);
+            btnBgmSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+        }
+        if (Model.SoundPlayer.isSfxMuted()) {
+            btnSfxSound.setSelected(true);
+            btnSfxSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+        }
     }
 
     private void startBannerSlider() {
@@ -147,9 +155,17 @@ public class TestFrame extends javax.swing.JFrame {
         topPanel = new javax.swing.JPanel();
         btnBackContainer = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
+        soundPanel = new javax.swing.JPanel();
+        bgmSoundPanel = new javax.swing.JPanel();
+        btnBgmSound = new javax.swing.JToggleButton();
+        jLabel3 = new javax.swing.JLabel();
+        bgmSoundPanel1 = new javax.swing.JPanel();
+        btnSfxSound = new javax.swing.JToggleButton();
+        jLabel4 = new javax.swing.JLabel();
         pityContainer = new javax.swing.JPanel();
         pityBg = new javax.swing.JPanel();
         lblPity = new javax.swing.JLabel();
+        rightTopPanel = new javax.swing.JPanel();
         currencyPanel = new javax.swing.JPanel();
         lblTungCoin = new javax.swing.JLabel();
         lblCoinAmount = new javax.swing.JLabel();
@@ -185,6 +201,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Anomali Gacha");
+        setExtendedState(6);
 
         bgPanel.setLayout(new java.awt.BorderLayout());
 
@@ -194,10 +211,10 @@ public class TestFrame extends javax.swing.JFrame {
 
         topPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 10, 10));
         topPanel.setOpaque(false);
-        topPanel.setPreferredSize(new java.awt.Dimension(791, 60));
-        topPanel.setLayout(new java.awt.GridBagLayout());
+        topPanel.setPreferredSize(new java.awt.Dimension(791, 100));
+        topPanel.setLayout(new java.awt.BorderLayout());
 
-        btnBackContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        btnBackContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         btnBackContainer.setOpaque(false);
         btnBackContainer.setLayout(new java.awt.GridBagLayout());
 
@@ -209,18 +226,72 @@ public class TestFrame extends javax.swing.JFrame {
         btnBack.addActionListener(this::btnBackActionPerformed);
         btnBackContainer.add(btnBack, new java.awt.GridBagConstraints());
 
+        soundPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 1));
+        soundPanel.setOpaque(false);
+        soundPanel.setLayout(new java.awt.GridBagLayout());
+
+        bgmSoundPanel.setOpaque(false);
+        bgmSoundPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bgmSoundPanelMouseClicked(evt);
+            }
+        });
+        bgmSoundPanel.setLayout(new java.awt.GridBagLayout());
+
+        btnBgmSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/sound_on.png"))); // NOI18N
+        btnBgmSound.setBorderPainted(false);
+        btnBgmSound.setContentAreaFilled(false);
+        btnBgmSound.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBgmSound.setFocusPainted(false);
+        btnBgmSound.addActionListener(this::btnBgmSoundActionPerformed);
+        bgmSoundPanel.add(btnBgmSound, new java.awt.GridBagConstraints());
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Background Music");
+        bgmSoundPanel.add(jLabel3, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        soundPanel.add(bgmSoundPanel, gridBagConstraints);
+
+        bgmSoundPanel1.setOpaque(false);
+        bgmSoundPanel1.setLayout(new java.awt.GridBagLayout());
+
+        btnSfxSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/sound_on.png"))); // NOI18N
+        btnSfxSound.setBorderPainted(false);
+        btnSfxSound.setContentAreaFilled(false);
+        btnSfxSound.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSfxSound.setFocusPainted(false);
+        btnSfxSound.addActionListener(this::btnSfxSoundActionPerformed);
+        bgmSoundPanel1.add(btnSfxSound, new java.awt.GridBagConstraints());
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Sound Effect");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        bgmSoundPanel1.add(jLabel4, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        topPanel.add(btnBackContainer, gridBagConstraints);
+        soundPanel.add(bgmSoundPanel1, gridBagConstraints);
 
+        btnBackContainer.add(soundPanel, new java.awt.GridBagConstraints());
+
+        topPanel.add(btnBackContainer, java.awt.BorderLayout.WEST);
+
+        pityContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pityContainer.setOpaque(false);
+        pityContainer.setPreferredSize(new java.awt.Dimension(200, 25));
         pityContainer.setLayout(new java.awt.GridBagLayout());
 
         pityBg.setBackground(new java.awt.Color(255, 255, 255));
-        pityBg.setPreferredSize(new java.awt.Dimension(85, 25));
+        pityBg.setPreferredSize(new java.awt.Dimension(100, 25));
         pityBg.setLayout(new java.awt.GridBagLayout());
 
         lblPity.setBackground(new java.awt.Color(0, 153, 51));
@@ -230,17 +301,18 @@ public class TestFrame extends javax.swing.JFrame {
         lblPity.setText("Pity : 0 / 90");
         pityBg.add(lblPity, new java.awt.GridBagConstraints());
 
-        pityContainer.add(pityBg, new java.awt.GridBagConstraints());
-
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weightx = 1.0;
-        topPanel.add(pityContainer, gridBagConstraints);
+        gridBagConstraints.weightx = 0.1;
+        pityContainer.add(pityBg, gridBagConstraints);
+
+        topPanel.add(pityContainer, java.awt.BorderLayout.CENTER);
+
+        rightTopPanel.setOpaque(false);
+        rightTopPanel.setPreferredSize(new java.awt.Dimension(223, 22));
+        rightTopPanel.setLayout(new java.awt.GridBagLayout());
 
         currencyPanel.setBackground(new java.awt.Color(255, 255, 255));
         currencyPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 9, 1, 9));
-        currencyPanel.setPreferredSize(new java.awt.Dimension(100, 60));
         currencyPanel.setLayout(new java.awt.GridBagLayout());
 
         lblTungCoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/tungCoin.png"))); // NOI18N
@@ -269,7 +341,9 @@ public class TestFrame extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        topPanel.add(currencyPanel, gridBagConstraints);
+        rightTopPanel.add(currencyPanel, gridBagConstraints);
+
+        topPanel.add(rightTopPanel, java.awt.BorderLayout.EAST);
 
         mainPanel.add(topPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -607,6 +681,31 @@ public class TestFrame extends javax.swing.JFrame {
         d.setVisible(true);
     }//GEN-LAST:event_menuAnomaliMouseClicked
 
+    private void btnBgmSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBgmSoundActionPerformed
+        if (btnBgmSound.isSelected()) {
+            btnBgmSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+            SoundPlayer.muteBGM();
+
+        } else {
+            btnBgmSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_on.png")));
+            SoundPlayer.unmuteBGM();
+        }
+    }//GEN-LAST:event_btnBgmSoundActionPerformed
+
+    private void bgmSoundPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgmSoundPanelMouseClicked
+
+    }//GEN-LAST:event_bgmSoundPanelMouseClicked
+
+    private void btnSfxSoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSfxSoundActionPerformed
+        if (btnSfxSound.isSelected()) {
+            btnSfxSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_off.png")));
+            SoundPlayer.muteSFX();
+        } else {
+            btnSfxSound.setIcon(new ImageIcon(getClass().getResource("/assets/images/sound_on.png")));
+            SoundPlayer.unmuteSFX();
+        }
+    }//GEN-LAST:event_btnSfxSoundActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -635,19 +734,25 @@ public class TestFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bannerPanel;
     private javax.swing.JPanel bgPanel;
+    private javax.swing.JPanel bgmSoundPanel;
+    private javax.swing.JPanel bgmSoundPanel1;
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton btnAddCoin;
     private javax.swing.JButton btnBack;
     private javax.swing.JPanel btnBackContainer;
+    private javax.swing.JToggleButton btnBgmSound;
     private javax.swing.JButton btnGacha1;
     private javax.swing.JButton btnGacha10;
     private javax.swing.JButton btnReset;
+    private javax.swing.JToggleButton btnSfxSound;
     private javax.swing.JPanel currencyPanel;
     private javax.swing.JPanel dummyLeftPanel;
     private javax.swing.JPanel footerCenter;
     private javax.swing.JPanel gachaBtnContainer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAnomali;
@@ -672,6 +777,8 @@ public class TestFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pityContainer;
     private javax.swing.JPanel resetContainer;
     private javax.swing.JPanel rightPanel;
+    private javax.swing.JPanel rightTopPanel;
+    private javax.swing.JPanel soundPanel;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 }

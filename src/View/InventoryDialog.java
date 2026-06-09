@@ -262,7 +262,7 @@ public class InventoryDialog extends javax.swing.JDialog {
 
         getContentPane().add(containerCenter, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(1024, 450));
+        setSize(new java.awt.Dimension(1024, 576));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
